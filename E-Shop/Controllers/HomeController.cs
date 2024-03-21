@@ -1,4 +1,5 @@
 ﻿using E_Shop.Models;
+using E_Shop.Models.Authentication;
 using E_Shop.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,7 @@ namespace E_Shop.Controllers
             _logger = logger;
         }
 
+        [Authentication]
         public IActionResult Index(int? page)
         {
             int pageSize = 8;
@@ -25,6 +27,8 @@ namespace E_Shop.Controllers
             PagedList<TDanhMucSp> lst=new PagedList<TDanhMucSp>(lstsanpham, pageNum, pageSize);
             return View(lst);
         }
+
+        [Authentication]
         public IActionResult SanPhamTheoLoai(string maloai, int? page)
         {
             int pageSize = 8;
@@ -34,6 +38,8 @@ namespace E_Shop.Controllers
             ViewBag.maloai=maloai;
             return View(lst);
         }
+
+        [Authentication]
         public IActionResult ChiTietSanPham(string maSp)
         {
             var sanpham=db.TDanhMucSps.SingleOrDefault(x=>x.MaSp==maSp);
